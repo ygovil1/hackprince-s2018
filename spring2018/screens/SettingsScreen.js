@@ -14,6 +14,7 @@ import { List, ListItem } from 'react-native-elements'
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
     title: 'Menus',
+    headerStyle: { backgroundColor: 'white', height: 60},
   };
 
   render() {
