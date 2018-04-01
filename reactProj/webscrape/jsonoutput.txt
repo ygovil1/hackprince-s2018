@@ -1,0 +1,53 @@
+{
+    "meal": "Lunch",
+    "categories": 
+    {
+        "cat": "Starches", 
+        "recipes": 
+        {
+            "name": "O'Brien Potatoes"
+        },
+        "cat": "Fruit",
+        "recipes": 
+        {
+            "name": "Grapefruit Half"
+        },
+        "cat": "Breakfast Bars",
+        "recipes": 
+        {
+            "Bacon",
+            "French Toast",
+            "Lox & Bagel Bar",
+            "Omelet Bar with Pork Options",
+            "Pork Sausage Links",
+            "Scrambled Eggs",
+            "Turkey Sausage"
+        },
+        "cat": "Main Entree",
+        "recipes":
+        {
+            "Fried Chicken & Waffles with Sausage"
+        },
+        "cat": "Vegetarian & Vegan Entree",
+        "recipes": 
+        {
+            "Grilled Tofu with Pico di Gallo"
+        }
+    },
+
+    Dinner
+    -- Soup of the Day --
+    Carrot Ginger Soup
+    -- Vegan Salads --
+    Fresh vegetables, fruit, sprouts, seeds, legumes & greens
+    Up to ten daily varieties of freshly composed salads
+    -- Main Entree --
+    Beef Stroganoff
+    -- Vegetarian & Vegan Entree --
+    Stuffed Shells
+    -- On the Side --
+    Buttered Egg Noodles
+    Corn
+    -- Action Station --
+    Beans, Greens & Grains, A la Minute Saute Station
+}

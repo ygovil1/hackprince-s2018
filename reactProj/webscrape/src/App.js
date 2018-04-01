@@ -8,7 +8,7 @@ class App extends Component {
     
     let url = "https://campusdining.princeton.edu/dining/_Foodpro/online-menu/menuDetails.asp?sName=Princeton+University+Campus+Dining&locationNum=02&locationName=Butler+%26+Wilson+Colleges&naFlag=1";
     let scraper = new Scraper(url);
-    let json = Scraper.getJSONString(url);
+    let json = scraper.getJSONString(url);
     return (
       <div className="App">
         <header className="App-header">

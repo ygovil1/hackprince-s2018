@@ -40,15 +40,15 @@ export default class Scraper {
         return companiesList;
     }   
 
-    getJSONString(url) {
+    getJSONString() {
         let cheerio = require('cheerio');
         let jsonframe = require('jsonframe-cheerio');
 
-        let $ = cheerio.load(url);
+        let $ = cheerio.load(this.url);
         jsonframe($); // initializes the plugin
 
         let frame = {
-            "dhall": "#jumbotronFeature :first-child", // gets the dining hall name, #id jumbotronFeature, first child
+            'dhall': "#jumbotronFeature h1", // gets the dining hall name, #id jumbotronFeature, first child
             "date": "#dateHeader :first-child", // gets the current date by scraping first date link
             "mealOfDay" : {
                 _s: ".card.mealCard", // selector for meal 
@@ -70,12 +70,12 @@ export default class Scraper {
             }
         };
 
-        frame = {
-            "dhall": {
-                _s: "#jumbotronFeature",
-                _d: "a:first-child"
-            }, // gets the dining hall name, #id jumbotronFeature, first child
-            "date": "a.menuDates", // gets the current date by scraping first date link
+        // frame = {
+        //     "dhall": {
+        //         _s: "#jumbotronFeature",
+        //         _d: "a:first-child"
+        //     }, // gets the dining hall name, #id jumbotronFeature, first child
+        //     "date": "a.menuDates", // gets the current date by scraping first date link
             // "mealOfDay" : {
             //     _s: ".card.mealCard", // selector for meal 
             //     _d: [{
@@ -94,9 +94,9 @@ export default class Scraper {
             //         } 
             //     }]
             // }
-        };
+        // };
 
-        let companiesList = $('.list.items').scrape(frame, { string: true });
+        let companiesList = $('body').scrape(frame, { string: true });
         return companiesList;
     }   
 }
