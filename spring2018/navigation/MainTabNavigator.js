@@ -2,24 +2,29 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
+import { Icon } from 'react-native-elements'
 
 import Colors from '../constants/Colors';
 
+import NotificationsScreen from '../screens/NotificationsScreen';
+import PreferencesScreen from '../screens/PreferencesScreen';
+import MenusScreen from '../screens/MenusScreen';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
 
 export default TabNavigator(
   {
     Home: {
       screen: HomeScreen,
     },
-    Links: {
-      screen: LinksScreen,
+    Notification: {
+      screen: NotificationsScreen,
     },
-    Settings: {
-      screen: SettingsScreen,
+    Preferences: {
+      screen: PreferencesScreen,
     },
+    Menus: {
+      screen: MenusScreen,
+    }
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -28,24 +33,30 @@ export default TabNavigator(
         let iconName;
         switch (routeName) {
           case 'Home':
+            iconName = 
+              Platform.OS === 'ios'
+                  ? `ios-home${focused ? '' : '-outline'}`
+                  : 'md-information-circle';
+            break;
+          case 'Notification':
             iconName =
               Platform.OS === 'ios'
-                ? `ios-information-circle${focused ? '' : '-outline'}`
+                ? `ios-notifications${focused ? '' : '-outline'}`
                 : 'md-information-circle';
             break;
-          case 'Links':
-            iconName = Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link';
+          case 'Preferences':
+            iconName = Platform.OS === 'ios' ? `ios-settings${focused ? '' : '-outline'}` : 'md-link';
             break;
-          case 'Settings':
+          case 'Menus':
             iconName =
-              Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options';
+              Platform.OS === 'ios' ? `ios-menu${focused ? '' : '-outline'}` : 'md-options';
         }
         return (
           <Ionicons
             name={iconName}
             size={28}
             style={{ marginBottom: -3, width: 25 }}
-            color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+            color='#34363a'
           />
         );
       },
