@@ -15,23 +15,23 @@
         "cat": "Breakfast Bars",
         "recipes": 
         {
-            "Bacon",
-            "French Toast",
-            "Lox & Bagel Bar",
-            "Omelet Bar with Pork Options",
-            "Pork Sausage Links",
-            "Scrambled Eggs",
-            "Turkey Sausage"
+            "name": "Bacon",
+            "name": "French Toast",
+            "name": "Lox & Bagel Bar",
+            "name": "Omelet Bar with Pork Options",
+            "name": "Pork Sausage Links",
+            "name": "Scrambled Eggs",
+            "name": "Turkey Sausage"
         },
         "cat": "Main Entree",
         "recipes":
         {
-            "Fried Chicken & Waffles with Sausage"
+            "name": "Fried Chicken & Waffles with Sausage"
         },
         "cat": "Vegetarian & Vegan Entree",
         "recipes": 
         {
-            "Grilled Tofu with Pico di Gallo"
+            "name": "Grilled Tofu with Pico di Gallo"
         }
     },
     "meal": "Dinner",
@@ -40,27 +40,27 @@
         "cat": "Soup of the Day",
         "recipes": 
         {
-            "Carrot Ginger Soup" 
+            "name": "Carrot Ginger Soup" 
         }
         "cat": "Main Entree",
         "recipes": 
         {
-            "Beef Stroganoff"
+            "name": "Beef Stroganoff"
         }
         "cat": "Vegetarian & Vegan Entree"
         {
-            "Stuffed Shells"
+            "name": "Stuffed Shells"
         }
         "cat": "On the Side",
         "recipes":
         {
-            "Buttered Egg Noodles",
-            "Corn"
+            "name": "Buttered Egg Noodles",
+            "name": "Corn"
         }    
         "cat": "Action Station",
         "recipes":
         {
-            "Beans, Greens & Grains, A la Minute Saute Station"
+            "name": "Beans, Greens & Grains, A la Minute Saute Station"
         }
     }
 }
