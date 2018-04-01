@@ -34,20 +34,33 @@
             "Grilled Tofu with Pico di Gallo"
         }
     },
-
-    Dinner
-    -- Soup of the Day --
-    Carrot Ginger Soup
-    -- Vegan Salads --
-    Fresh vegetables, fruit, sprouts, seeds, legumes & greens
-    Up to ten daily varieties of freshly composed salads
-    -- Main Entree --
-    Beef Stroganoff
-    -- Vegetarian & Vegan Entree --
-    Stuffed Shells
-    -- On the Side --
-    Buttered Egg Noodles
-    Corn
-    -- Action Station --
-    Beans, Greens & Grains, A la Minute Saute Station
+    "meal": "Dinner",
+    "categories": 
+    {
+        "cat": "Soup of the Day",
+        "recipes": 
+        {
+            "Carrot Ginger Soup" 
+        }
+        "cat": "Main Entree",
+        "recipes": 
+        {
+            "Beef Stroganoff"
+        }
+        "cat": "Vegetarian & Vegan Entree"
+        {
+            "Stuffed Shells"
+        }
+        "cat": "On the Side",
+        "recipes":
+        {
+            "Buttered Egg Noodles",
+            "Corn"
+        }    
+        "cat": "Action Station",
+        "recipes":
+        {
+            "Beans, Greens & Grains, A la Minute Saute Station"
+        }
+    }
 }
