@@ -11,6 +11,8 @@ import {
   FlatList,
 } from 'react-native';
 import { WebBrowser } from 'expo';
+import { SearchBar } from 'react-native-elements';
+import LinksScreen from './LinksScreen';
 
 import { MonoText } from '../components/StyledText';
 
@@ -26,6 +28,8 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        console.log(LinksScreen.state.valueArray)
+
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             {/*<Image
@@ -44,7 +48,11 @@ export default class HomeScreen extends React.Component {
             </Text>
             </View>*/}
 
-          <View style={styles.helpContainer}>
+          <View>
+            <SearchBar
+            lightTheme
+            placeholder='Search' />
+
             <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
               <Text style={styles.helpLinkText}>This is a button</Text>
             </TouchableOpacity>
@@ -111,11 +119,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contentContainer: {
-    paddingTop: 30,
+    //paddingTop: 30,
   },
   welcomeContainer: {
     alignItems: 'center',
-    marginTop: 10,
+    //marginTop: 10,
     marginBottom: 20,
   },
   welcomeImage: {
@@ -164,7 +172,7 @@ const styles = StyleSheet.create({
     }),
     alignItems: 'center',
     backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
+    //paddingVertical: 20,
   },
   tabBarInfoText: {
     fontSize: 17,
@@ -179,7 +187,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   helpLink: {
-    paddingVertical: 15,
+    //paddingVertical: 15,
   },
   helpLinkText: {
     fontSize: 14,

@@ -11,6 +11,7 @@ import {
   Image,
 } from 'react-native';
 import add from '../assets/images/add.png';
+import { SearchBar } from 'react-native-elements';
 
 export default class LinksScreen extends React.Component {
   static navigationOptions = {
@@ -22,11 +23,14 @@ export default class LinksScreen extends React.Component {
   constructor()
   {
     super();
-    this.state = {valueArray: [], disabled: false}
+    this.state = {
+      valueArray: [], // array of stored preferences
+      disabled: false,
+      nextpref: ''
+    }
     this.animatedValue = new Animated.Value(0);
 
     this.prefcount = 1;
-    this.matches = ['']
   }
 
   // add an element to the array 
@@ -34,7 +38,7 @@ export default class LinksScreen extends React.Component {
   {
     this.animatedValue.setValue(0);
  
-    let newlyAddedValue = { prefcount: this.prefcount }
+    let newlyAddedValue = { prefcount: this.state.nextpref }
  
     this.setState({ disabled: true, valueArray: [ ...this.state.valueArray, newlyAddedValue ] }, () =>
     {
@@ -79,7 +83,7 @@ export default class LinksScreen extends React.Component {
         {
             return(
                 <Animated.View key = { key } style = {[ styles.viewHolder, { opacity: this.animatedValue, transform: [{ translateY: animationValue }] }]}>
-                    <Text style = { styles.text }>Row { item.prefcount }</Text>
+                    <Text style = { styles.text }> { item.prefcount }</Text>
                 </Animated.View>
             );
         }
@@ -87,7 +91,7 @@ export default class LinksScreen extends React.Component {
         {
             return(
                 <View key = { key } style = { styles.viewHolder }>
-                    <Text style = { styles.text }>Row { item.prefcount }</Text>
+                    <Text style = { styles.text }> { item.prefcount }</Text>
                 </View>
             );
         }
@@ -95,6 +99,12 @@ export default class LinksScreen extends React.Component {
  
     return(
       <View style = { styles.container }>
+      <SearchBar
+          lightTheme
+          placeholder='Add a preference' 
+          onChangeText={(nextpref) => this.setState({nextpref})}
+          value={this.state.nextpref}
+          />
       <ScrollView>
           <View style = {{ flex: 1, padding: 4 }}>
           {
@@ -140,7 +150,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#eee',
         justifyContent: 'center',
-        paddingTop: (Platform.OS == 'ios') ? 20 : 0
+        //paddingTop: (Platform.OS == 'ios') ? 20 : 0
     },
  
     viewHolder:
