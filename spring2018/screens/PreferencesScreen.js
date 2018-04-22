@@ -165,9 +165,11 @@ export default class PreferencesScreen extends React.Component {
     return(
       <View style = { styles.container }>
         <SearchBar
+        ref = {search => this.search = search}
           lightTheme
           placeholder='Add a preference' 
           onChangeText={(pref) => this.setState({pref})}
+          clearIcon
           value={this.state.pref}
           />
 
