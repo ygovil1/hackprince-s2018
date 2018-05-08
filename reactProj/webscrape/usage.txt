@@ -1,0 +1,26 @@
+Each college is given a code:
+Butler - Wilson:    "bw"
+Rocky - Mathey:     "rm"
+Whitman:            "wh"
+CJL:                "cj"
+Grad College:       "gc"
+Forbes:             "fb"
+
+Menu for a college is stored in a file with the college tag and the number of days ahead of last update. 
+For example, the Whitman menu for two days from now is stored in wh2.txt
+
+For each college, there are 7 files: 0 to 6. 
+
+Each file is formatted are follows: 
+
+-[number of meals]
+for each meal {
+-[name of meal]
+-[number of categories in this meal]
+    for each category {
+-[category]
+        for each recipe {
+-[recipe]
+        }
+    }
+}
