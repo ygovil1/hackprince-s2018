@@ -12,21 +12,30 @@ import {
   Button,
   SectionList,
   Array,
+  Animated,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import { SearchBar } from 'react-native-elements';
 
 import { MonoText } from '../components/StyledText';
 
-export default class HomeScreen extends React.Component {
+export default class NotificationsScreen extends React.Component {
   constructor(props) {
-    super(props);
+    super();
 
+    this.state = {
+      disabled: false,
+      nextpref: ''
+    }
+
+    this.animatedValue = new Animated.Value(0);
+    this.prefcount = 1;
+
+	// This lets us access the global variables from the below methods
     this.render = this.render.bind(this);
-    this._handlePress = this._handlePress.bind(this);
+    this.addMore = this.addMore.bind(this);
 
-    this.state = {}
-
+    // Fake data for now
     this.wilson = ['Fried Chicken & Waffles with Sausage', 'Grilled Tofu with Pico di Gallo', 'OBrien Potatoes', 'Grapefruit Half','Bacon'];
     this.wilson1 = [];
 
@@ -51,93 +60,109 @@ export default class HomeScreen extends React.Component {
     headerTitleStyle: { fontWeight: 'bold' },
   };
 
+  // add an element to the array 
+  addMore = () =>
+  {
+    this.wilson1 = [];
+    this.cjl1 = [];
+    this.whitman1 = [];
+    this.roma1 = [];
+    this.forbes1 = [];
+
+    this.animatedValue.setValue(0);
+ 
+    this.setState({ disabled: true }, () =>
+    {
+        Animated.timing(
+            this.animatedValue,
+            {
+                toValue: 1,
+                duration: 500,
+                useNativeDriver: true
+            }
+        ).start(() =>
+        {
+            // Find matches with your preferences
+		    for (let i = 0; i < global.prefArray.length; i++) {
+		      for (let j = 0; j < 5; j++) {
+		        if (global.prefArray[i] == this.wilson[j]) {
+		          this.wilson1.push(this.wilson[j])
+		        }
+		      }
+		    }
+
+		    for (let i = 0; i < global.prefArray.length; i++) {
+		      for (let j = 0; j < 5; j++) {
+		        if (global.prefArray[i] == this.cjl[j]) {
+		          this.cjl1.push(this.cjl[j])
+		        }
+		      }
+		    }
+
+		    for (let i = 0; i < global.prefArray.length; i++) {
+		      for (let j = 0; j < 5; j++) {
+		        if (global.prefArray[i] == this.whitman[j]) {
+		          this.whitman1.push(this.whitman[j])
+		        }
+		      }
+		    }
+
+		    for (let i = 0; i < global.prefArray.length; i++) {
+		      for (let j = 0; j < 5; j++) {
+		        if (global.prefArray[i] == this.roma[j]) {
+		          this.roma1.push(this.roma[j])
+		        }
+		      }
+		    }
+
+		    for (let i = 0; i < global.prefArray.length; i++) {
+		      for (let j = 0; j < 5; j++) {
+		        if (global.prefArray[i] == this.forbes[j]) {
+		          this.forbes1.push(this.forbes[j])
+		        }
+		      }
+		    }
+
+            this.setState({ disabled: false });
+        }); 
+    });       
+  }
+
   render() {
+    const animationValue = this.animatedValue.interpolate(
+    {
+        inputRange: [ 0, 1 ],
+        outputRange: [ -59, 0 ]
+    });
+
     return (
       <View style={styles.container}>
 
             <Button
               style={{borderWidth: 1, borderColor: 'blue'}}
-              onPress={this._handlePress}
+              onPress={this.addMore}
               title="Refresh Notifications"
             >
             </Button>
 
-            <SectionList
-              sections={[
-                {title: 'Wilson+Butler', data: this.wilson1},
-                {title: 'CJL', data: this.cjl1},
-                {title: 'Whitman', data: this.whitman1},
-                {title: 'RoMa', data: this.roma1},
-                {title: 'Forbes', data: this.forbes1},
-              ]}
+            <ScrollView>
+	            <SectionList
+	              sections={[
+	                {title: 'Wilson+Butler', data: this.wilson1},
+	                {title: 'CJL', data: this.cjl1},
+	                {title: 'Whitman', data: this.whitman1},
+	                {title: 'RoMa', data: this.roma1},
+	                {title: 'Forbes', data: this.forbes1},
+	              ]}
 
-              renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
-              renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-              keyExtractor={(item, index) => index}
-            />
+	              renderItem={({item}) => <Text style={styles.item}> {item}</Text>}
+	              renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
+	              keyExtractor={(item, index) => index}
+	            />
+	        </ScrollView>
 
       </View>
     );
-  }
-
-  _handlePress() {
-    console.log('Pressed1!')
-    console.log(global.valueArray)
-
-    for (let i = 0; i < global.valueArray.length; i++) {
-      for (let j = 0; j < 5; j++) {
-        if (global.valueArray[i] == this.wilson[j]) {
-          this.wilson1.push(this.wilson[j])
-        }
-      }
-    }
-    console.log("Wilson + Wilson Matches")
-    console.log(this.wilson)
-    console.log(this.wilson1)
-
-    for (let i = 0; i < global.valueArray.length; i++) {
-      for (let j = 0; j < 5; j++) {
-        if (global.valueArray[i] == this.cjl[j]) {
-          this.cjl1.push(this.cjl[j])
-        }
-      }
-    }
-    console.log("CJL + CJL Matches:")
-    console.log(this.cjl)
-    console.log(this.cjl1)
-
-    for (let i = 0; i < global.valueArray.length; i++) {
-      for (let j = 0; j < 5; j++) {
-        if (global.valueArray[i] == this.whitman[j]) {
-          this.whitman1.push(this.whitman[j])
-        }
-      }
-    }
-    console.log("Whitman + Whitman Matches:")
-    console.log(this.whitman)
-    console.log(this.whitman1)
-
-    for (let i = 0; i < global.valueArray.length; i++) {
-      for (let j = 0; j < 5; j++) {
-        if (global.valueArray[i] == this.roma[j]) {
-          this.roma1.push(this.roma[j])
-        }
-      }
-    }
-    console.log("RoMa + RoMa Matches:")
-    console.log(this.roma)
-    console.log(this.roma1)
-
-    for (let i = 0; i < global.valueArray.length; i++) {
-      for (let j = 0; j < 5; j++) {
-        if (global.valueArray[i] == this.forbes[j]) {
-          this.forbes1.push(this.forbes[j])
-        }
-      }
-    }
-    console.log("Forbes + Forbes Matches:")
-    console.log(this.forbes)
-    console.log(this.forbes1)
 
   }
 

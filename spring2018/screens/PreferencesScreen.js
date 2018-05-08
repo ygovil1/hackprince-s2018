@@ -13,6 +13,9 @@ import {
 } from 'react-native';
 import add from '../assets/images/add.png';
 import { SearchBar } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+// global preferences array
 
 export default class PreferencesScreen extends React.Component {
   static navigationOptions = {
@@ -21,27 +24,38 @@ export default class PreferencesScreen extends React.Component {
     headerStyle: { backgroundColor: '#f96f00', height: 50, borderBottomWidth: 0},
   };
 
+  // Create a new preferences list 
   constructor()
   {
     super();
     this.state = {
       disabled: false,
-      nextpref: ''
+
+      // next preference to be typed
+      pref: ''
     }
-    global.valueArray = [];
+    global.prefArray = [];
 
     this.animatedValue = new Animated.Value(0);
     this.prefcount = 1;
   }
 
-  // add an element to the array 
+  // add a preference to the list
   addMore = () =>
   {
+      // set animation value
     this.animatedValue.setValue(0);
  
-    global.valueArray.push(this.state.nextpref)
+    // get the string to add
+    let item = this.state.pref;
+
+    // push the preference
+    prefArray.push( item );
+
+    // set the next state
     this.setState({ disabled: true }, () =>
     {
+        // animation of adding
         Animated.timing(
             this.animatedValue,
             {
@@ -57,6 +71,33 @@ export default class PreferencesScreen extends React.Component {
     });       
   }
 
+  deletePref = (item) =>
+  {
+    // Get the index of the element
+    let index = global.prefArray.indexOf(item);
+
+    // Remove the preference fromt the preference array
+    global.prefArray.splice(index,1);
+
+    this.setState({ disabled: true }, () =>
+    {
+        // Animation
+        Animated.timing(
+            this.animatedValue,
+            {
+                toValue: 1,
+                duration: 500,
+                useNativeDriver: true
+            }
+        ).start(() =>
+        {
+            this.prefcount = this.prefcount - 1;
+            this.setState({ disabled: false });
+        }); 
+    }); 
+  }
+
+  // Separator between preferences
   renderSeparator = () => {
     return (
       <View
@@ -69,6 +110,7 @@ export default class PreferencesScreen extends React.Component {
     );
   };
 
+  // Action!
   render()
 {
     const animationValue = this.animatedValue.interpolate(
@@ -77,10 +119,12 @@ export default class PreferencesScreen extends React.Component {
         outputRange: [ -59, 0 ]
     });
  
-    let newArray = global.valueArray.map(( item, key ) =>
+    // present items in the array
+    let newArray = prefArray.map(( item, key ) =>
     {
         if(( key ) == this.prefcount)
         {
+            // name of the preference
             return(
                 <Animated.View key = { key } style = {[ styles.viewHolder, { opacity: this.animatedValue, transform: [{ translateY: animationValue }] }]}>
                     <Text style = { styles.text }> { item }</Text>
@@ -90,20 +134,43 @@ export default class PreferencesScreen extends React.Component {
         else
         {
             return(
-                <View key = { key } style = { styles.viewHolder }>
-                    <Text style = { styles.text }> { item }</Text>
-                </View>
-            );
+                <View style={{flex: 1, height: 55, flexDirection: 'row', justifyContent:'space-evenly',margin: 4,backgroundColor: "#f96f00"}} key = {key} >
+                    <View style={{width: 300, backgroundColor: "#f96f00",alignItems:'center',
+                            justifyContent:'center',}}>
+                        <Text style = { styles.text }> { item }</Text>/>
+                    </View>
+                    <View style={{width: 50, backgroundColor: "#f96f00",  justifyContent:'center', alignItems: 'center'}}>
+                    <TouchableOpacity 
+                            onPress={() => this.deletePref(item)}
+                            style={{
+                            borderWidth: 1,
+                            borderColor: 'rgba(0,0,0,0.2)',
+                            alignItems:'center',
+                            justifyContent:'center',
+                            width:40,
+                            height:40,
+                            backgroundColor:'#fff',
+                            borderRadius:100 
+                            }}> 
+                            <Icon name="minus"  size={30} color="rgba(0,0,0,0.5)" />
+                            </TouchableOpacity>
+                    </View>
+                  </View>
+    
+                );
         }
     });
  
+    // Searchbar and add preference button
     return(
       <View style = { styles.container }>
-      <SearchBar
+        <SearchBar
+        ref = {search => this.search = search}
           lightTheme
           placeholder='Add a preference' 
-          onChangeText={(nextpref) => this.setState({nextpref})}
-          value={this.state.nextpref}
+          onChangeText={(pref) => this.setState({pref})}
+          clearIcon
+          value={this.state.pref}
           />
 
           <Button
@@ -126,6 +193,7 @@ export default class PreferencesScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    // background for page
   container:
     {
         flex: 1,
@@ -134,19 +202,22 @@ const styles = StyleSheet.create({
         //paddingTop: (Platform.OS == 'ios') ? 20 : 0
     },
  
+    // preference rectangle
     viewHolder:
     {
         height: 55,
         backgroundColor: '#f96f00',
+        margin: 4,
+        alignItems: 'flex-end',
         justifyContent: 'center',
-        alignItems: 'center',
-        margin: 4
     },
  
     text:
     {
         color: 'white',
-        fontSize: 25
+        fontSize: 25,
+        textAlign: 'center',
+        textAlignVertical: 'center'
     },
  
     btn:
@@ -171,6 +242,27 @@ const styles = StyleSheet.create({
     },
     buttonStyle: 
     {
-        backgroundColor: 'orange'
+        backgroundColor: 'orange',
+    },
+    
+    deleteText:
+    {
+        textAlign: 'right',
+        textAlignVertical: 'center',
+    },
+
+    // button to delete
+    deleteButton:
+    {
+        width: 55,
+        height: 55,
+    },
+
+    stretch:
+    {
+        flex: 1,
+        alignSelf: 'stretch',
+        width: undefined,
+        height: undefined
     }
 });
